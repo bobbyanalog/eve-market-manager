@@ -1,3 +1,12 @@
 <html><body>
-.
+<div id="test">
+</div>
+<script>
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+  console.log(xhr);
+};
+xhr.open('GET', 'https://esi.evetech.net/latest/markets/groups/?datasource=tranquility');
+xhr.send()
+</script>
 </body></html>
