@@ -5,7 +5,7 @@
 <a href="http://13.217.100.0/emh"><img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-black-small.png" /></a>
 <script>
 if (window.location.toString().includes('?')) {
-  var urlParams = window.location.split('?')[1];
+  var urlParams = window.location.toString().split('?')[1];
   console.log(urlParams);
 };
 var xhr = new XMLHttpRequest();
