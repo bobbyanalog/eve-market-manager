@@ -5,14 +5,24 @@
 <a href="http://13.217.100.0/emh"><img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-black-small.png" /></a>
 <script>
 if (window.location.toString().includes('?')) {
-  var urlParams = window.location.toString().split('?')[1];
+  var urlParamStr = window.location.toString().split('?')[1];
+  var urlParams = urlParamStr.split('&');
+  for (var i = 0; i < url.Params.length; i++) {
+    var pair = urlParams[i].split('=');
+    if pair[0] == 'access_token' {
+      var idStr = JSON.parse(atob(pair[1].split('.')[1]));
+      console.log(idStr)
+    }
+  }
   console.log(urlParams);
 };
+
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   console.log(xhr);
 };
-xhr.open('GET', 'https://esi.evetech.net/latest/markets/groups/?datasource=tranquility');
-xhr.send()
+//xhr.open('GET', 'https://esi.evetech.net/latest/markets/groups/?datasource=tranquility');
+//xhr.send()
+
 </script>
 </body></html>
