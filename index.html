@@ -7,7 +7,7 @@
 if (window.location.toString().includes('?')) {
   var urlParamStr = window.location.toString().split('?')[1];
   var urlParams = urlParamStr.split('&');
-  for (var i = 0; i < url.Params.length; i++) {
+  for (var i = 0; i < urlParams.length; i++) {
     var pair = urlParams[i].split('=');
     if (pair[0] == 'access_token') {
       var idStr = JSON.parse(atob(pair[1].split('.')[1]));
