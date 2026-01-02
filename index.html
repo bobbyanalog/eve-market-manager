@@ -14,6 +14,9 @@ if (window.location.toString().includes('?')) {
       var charID = idStr.split(':')[2];
       console.log("https://esi.evetech.net/characters/"+charID);
       $.ajax({url: "https://esi.evetech.net/characters/"+charID, success: function(result){
+        var charName = result['name'];
+        var charCorpID = result['corporation_id'];
+        $("#test").html(charName + ' ' + charCorpID);
         console.log(result);
       }});
     }
