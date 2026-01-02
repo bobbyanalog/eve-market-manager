@@ -12,6 +12,7 @@ if (window.location.toString().includes('?')) {
     if (pair[0] == 'access_token') {
       var idStr = JSON.parse(atob(pair[1].split('.')[1]))['sub'];
       var charID = idStr.split(':')[2];
+      console.log("https://esi.evetech.net/characters/"+charID);
       $.ajax({url: "https://esi.evetech.net/characters/"+charID, success: function(result){
         console.log(result);
       }});
