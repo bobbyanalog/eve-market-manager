@@ -11,7 +11,7 @@ if (window.location.toString().includes('?')) {
     var pair = urlParams[i].split('=');
     if pair[0] == 'access_token' {
       var idStr = JSON.parse(atob(pair[1].split('.')[1]));
-      console.log(idStr)
+      console.log(idStr);
     }
   }
   console.log(urlParams);
