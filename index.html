@@ -11,14 +11,14 @@ if (window.location.toString().includes('?')) {
     var pair = urlParams[i].split('=');
     if (pair[0] == 'access_token') {
       var idStr = JSON.parse(atob(pair[1].split('.')[1]))['sub'];
-      console.log(idStr);
-      var charID = idStr.split(':')[-1];
-      console.log(charID);
+      var charID = idStr.split(':')[2];
+      $.ajax({url: "https://esi.evetech.net/characters/"+charID, success: function(result){
+        console.log(result);
+      }});
     }
   }
-  console.log(urlParams);
 };
-
+// 
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   console.log(xhr);
