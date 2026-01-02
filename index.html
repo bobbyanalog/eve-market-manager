@@ -21,8 +21,14 @@ if (window.location.toString().includes('?')) {
       }});
     }
   }
-};
-// 
+}
+
+$.ajax({url: "https://esi.evetech.net/universe/regions", success: function(result){
+  var regIDs = result;
+  console.log(regIDs);
+}});
+
+  
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   console.log(xhr);
