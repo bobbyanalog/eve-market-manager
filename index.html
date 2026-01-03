@@ -27,7 +27,7 @@ if (window.location.toString().includes('?')) {
 
 $.ajax({url: "https://esi.evetech.net/universe/regions", success: function(result){
   var regIDs = result;
-  console.log(regIDs);
+  //console.log(regIDs);
   // 10000069 black rise
 }});
 
@@ -39,12 +39,12 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
   var content = '';
   //for (i = 0; i <= data.length; i++) {
   for (i = 0; i <= 10; i++) {
-    console.log(data[i]);
+    //console.log(data[i]);
     var ent = data[i];
-    console.log(ent);
+    //console.log(ent);
     if (!(ent['type_id'] in types)) {
       $.ajax({url: "https://esi.evetech.net/universe/types/" + ent['type_id'], success: function(result){
-        console.log(result);
+        //console.log(result);
         types[ent['type_id']] = result;
       }});
     }
