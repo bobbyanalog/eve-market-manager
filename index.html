@@ -33,6 +33,7 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders", success: functio
   console.log(data);
   console.log(status);
   console.log(response);
+  console.log(response.getAllResponseHeaders());
 }});
   
 var xhr = new XMLHttpRequest();
