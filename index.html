@@ -29,7 +29,7 @@ $.ajax({url: "https://esi.evetech.net/universe/regions", success: function(resul
   // 10000069 black rise
 }});
 
-$.ajax({url: "https://esi.evetech.net/markets/10000069/orders", success: function(data, status, response){
+$.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", success: function(data, status, response){
   console.log(data);
   console.log(status);
   console.log(response);
