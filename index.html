@@ -5,6 +5,7 @@
 <hr>
 <div id="content"></div>
 <script>
+var types = {};
 if (window.location.toString().includes('?')) {
   var urlParamStr = window.location.toString().split('?')[1];
   var urlParams = urlParamStr.split('&');
@@ -41,6 +42,12 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
     console.log(data[i]);
     var ent = data[i];
     console.log(ent);
+    if (!(ent['type_id'] in types)) {
+      $.ajax({url: "https://esi.evetech.net/universe/types/" + ent['type_id'], success: function(result){
+        console.log(result);
+        types[ent['type_id']] = result
+      }});
+    }
     content += 'type_id:' + ent['type_id'] + ' volume_remain:' + ent['volume_remain'] + ' price:' + ent['price'] + ' system_id:' + ent['system_id'] + ' location_id:' + ent['location_id'] + ' duration:' + ent['duration'] + '<br>';
   }
   $("#content").html(content)
