@@ -26,8 +26,13 @@ if (window.location.toString().includes('?')) {
 $.ajax({url: "https://esi.evetech.net/universe/regions", success: function(result){
   var regIDs = result;
   console.log(regIDs);
+  // 10000069 black rise
 }});
 
+$.ajax({url: "https://esi.evetech.net/markets/10000069/orders", success: function(result){
+  var brOrders = result;
+  console.log(brOrders);
+}});
   
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
