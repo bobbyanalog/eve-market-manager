@@ -40,7 +40,7 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
     var ent = data[i]
     content += ent.type_id + ' ' + ent.volume_remain + ' ' + ent.price + ' ' + ent.system_id + ' ' + ent.location_id + ' ' + ent.duration + <br>;
   }
-  $(#content).html(content)
+  $("#content").html(content)
 }});
   
 var xhr = new XMLHttpRequest();
