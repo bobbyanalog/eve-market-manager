@@ -7,6 +7,10 @@
 <div id="content"></div>
 <script>
 //console.log(types);
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 if (window.location.toString().includes('?')) {
   var urlParamStr = window.location.toString().split('?')[1];
   var urlParams = urlParamStr.split('&');
@@ -47,7 +51,7 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
     if (tid in types) {
       name = types[Number(tid)]['name'];
     }
-    content += name + ' | quantity:' + ent['volume_remain'] + ' | price:' + ent['price'] + ' | system_id:' + ent['system_id'] + ' | location_id:' + ent['location_id'] + ' | duration:' + ent['duration'] + '<br>';
+    content += name + ' | quantity:' + ent['volume_remain'] + ' | price:' + numberWithCommas(ent['price']) + ' | system_id:' + ent['system_id'] + ' | location_id:' + ent['location_id'] + ' | duration:' + ent['duration'] + '<br>';
   }
   $("#content").html(content)
 }});
