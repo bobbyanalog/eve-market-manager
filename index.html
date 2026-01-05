@@ -40,7 +40,7 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
   var content = 'Sell Orders<br>';
   //for (i = 0; i <= 10; i++) {
   for (i = 0; i <= data.length; i++) {
-    //console.log(data[i]);
+    console.log(data[i]);
     var ent = data[i];
     var tid = ent['type_id'];
     var name = tid;
