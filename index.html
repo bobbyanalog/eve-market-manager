@@ -1,11 +1,12 @@
 <html><body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src='types.custom.js'></script>
 <a href="http://13.217.100.0/emh"><img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-black-small.png" /></a>
 <div id="test"></div>
 <hr>
 <div id="content"></div>
 <script>
-var types = {};
+console.log(types);
 if (window.location.toString().includes('?')) {
   var urlParamStr = window.location.toString().split('?')[1];
   var urlParams = urlParamStr.split('&');
