@@ -1,4 +1,4 @@
-types = 
+var types = 
 {
 18: {'groupID': 458, 'marketGroupID': 516, 'name': 'Plagioclase'}
 19: {'groupID': 461, 'marketGroupID': 517, 'name': 'Spodumain'}
@@ -19126,4 +19126,5 @@ types =
 91415: {'groupID': 1194, 'marketGroupID': 1661, 'name': 'The Capsuleer’s Confectionary Codex – Field Edition'}
 91416: {'groupID': 1194, 'marketGroupID': 1661, 'name': 'Unfinished Romance Novel'}
 91516: {'groupID': 1950, 'marketGroupID': 2120, 'name': 'Caldari Victory SKIN'}
+
 }
