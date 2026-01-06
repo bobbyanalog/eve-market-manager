@@ -55,7 +55,7 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
       name = types[Number(tid)]['name'];
     }
     if (sid in systems) {
-      sysName = systems[Number(sid)]['name'];
+      sysName = systems[Number(sid)]['name'] + ' (' + systems[Number(sid)]['securityStatus'] + ')';
     }
     content += name + ' | quantity:' + ent['volume_remain'] + ' | price:' + numberWithCommas(ent['price']) + ' | duration:' + ent['duration'] + ' | ' + sysName + ' | location_id:' + ent['location_id'] + '<br>';
   }
