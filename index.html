@@ -48,11 +48,16 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
     console.log(data[i]);
     var ent = data[i];
     var tid = ent['type_id'];
+    var sid = ent['system_id'];
     var name = tid;
+    var sysName = sid;
     if (tid in types) {
       name = types[Number(tid)]['name'];
     }
-    content += name + ' | quantity:' + ent['volume_remain'] + ' | price:' + numberWithCommas(ent['price']) + ' | duration:' + ent['duration'] + ' | system_id:' + ent['system_id'] + ' | location_id:' + ent['location_id'] + '<br>';
+    if (sid in systems) {
+      sysName = systems[Number(sid)]['name'];
+    }
+    content += name + ' | quantity:' + ent['volume_remain'] + ' | price:' + numberWithCommas(ent['price']) + ' | duration:' + ent['duration'] + ' | ' + sysName + ' | location_id:' + ent['location_id'] + '<br>';
   }
   $("#content").html(content)
 }});
