@@ -1,5 +1,7 @@
-<html><body>
+<html>
+<body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!--script src="./jquery.min.js"></script-->
 <script src='types.custom.js'></script>
 <script src='systems.custom.js'></script>
 <script src='groups.custom.js'></script>
@@ -8,10 +10,103 @@
 <a href="http://13.217.100.0/emh"><img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-black-small.png" /></a>
 <div id="test"></div>
 <hr>
+<div id="marketTreeDiv"><ul id="marketTree"></ul></div>
+<hr>
 <div id="content"></div>
 <script>
-console.log(marketgroups.keys());
-  
+console.log(Object.keys(marketGroups));
+console.log();
+count = 0;
+
+function getNesting(lineag) {
+	//console.log('----- in getNesting');
+	//console.log(lineag);
+	// if we're in here, there should be a parent
+	currentID = lineag[lineag.length - 1];
+	current = marketGroups[currentID];
+	//console.log(current);
+	if ('parentGroupID' in current) {
+		//console.log('found parentGroupID '+current['parentGroupID']+', getting lineage.');
+		lineag.push(current['parentGroupID']);
+		lineag = getNesting(lineag);
+	}
+	return lineag;
+}
+
+function dispToggle(id) {
+	$('#'+id).toggle();
+}
+
+function getOrders(id) {
+	content = '';
+	console.log(id);
+	$.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell&type_id="+id, success: function(data, status, response){
+		console.log(data);
+		console.log(status);
+		console.log(response);
+		console.log(response.getAllResponseHeaders());
+		for (i = 0; i < data.length; i++) {
+			var ent = data[i];
+			var tid = ent['type_id'];
+			var sid = ent['system_id'];
+			var name = tid;
+			var sysName = sid;
+			if (tid in types) {
+				name = types[Number(tid)]['name'];
+			}
+			if (sid in systems) {
+				sysName = systems[Number(sid)]['name'] + ' (' + systems[Number(sid)]['securityStatus'] + ')';
+			}
+			content += name + ' | quantity:' + numberWithCommas(ent['volume_remain']) + ' | price:' + numberWithCommas(ent['price']) + ' | duration:' + ent['duration'] + ' | ' + sysName + ' | location_id:' + ent['location_id'] + '<br>';
+		}
+		$('#type-'+id).append(content);
+	}});
+}
+
+for (groupID in marketGroups) {
+	count++;
+	groupData = marketGroups[groupID];
+	//console.log(groupData);
+	//console.log("$marketTree-"+groupID);
+	lineage = [groupID];
+	if (!$("#marketTree-"+groupID).length) {
+		//console.log(groupID + ' doesnt exist, creating');
+		if ('parentGroupID' in groupData) {
+			//console.log('found parentGroupID '+groupID+', getting lineage.');
+			lineage.push(groupData['parentGroupID']);
+			lineage = getNesting(lineage);
+			//console.log('------ out of nesting');
+			//console.log(lineage);
+		}
+		parent = null;
+		console.log('updating');
+		console.log(lineage);
+		for (i = (lineage.length-1); i >= 0; i--) {
+			groupID = lineage[i];
+			divID = 'marketTree-' + groupID;
+			console.log(divID);
+			if (!$("#"+divID).length) {
+				console.log('doesnt exist, adding');
+				if (parent != null) {
+					$("#"+parent).append('<li><button onclick="dispToggle(\''+divID+'\')">.</button> '+marketGroups[groupID]['name']['en']+'<ul id=\''+divID+'\'></ul></li>');
+				} else {
+					$("#marketTree").append('<li><button onclick="dispToggle(\''+divID+'\')">.</button> '+marketGroups[groupID]['name']['en']+'<ul id=\''+divID+'\'></ul></li>');
+					parent = divID;
+				}
+			} else {
+				parent = divID;
+			}
+		}
+	}
+	//if (count >= 30) {break;}
+}
+
+for (typeID in types) {
+	gidDiv = 'marketTree-'+types[typeID]['marketGroupID'];
+	tidDiv = 'type-'+typeID;
+	$("#"+gidDiv).append('<li>'+types[typeID]['name']+' <button onclick="getOrders(\''+typeID+'\')">.</button><ul id=\''+tidDiv+'\'></ul></li>');
+}
+
 //console.log(types);
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -41,7 +136,7 @@ $.ajax({url: "https://esi.evetech.net/universe/regions", success: function(resul
   //console.log(regIDs);
   // 10000069 black rise
 }});
-
+/*
 $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", success: function(data, status, response){
   console.log(data);
   console.log(status);
@@ -66,13 +161,14 @@ $.ajax({url: "https://esi.evetech.net/markets/10000069/orders?order_type=sell", 
   }
   $("#content").html(content)
 }});
-  
+
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   console.log(xhr);
 };
 //xhr.open('GET', 'https://esi.evetech.net/latest/markets/groups/?datasource=tranquility');
 //xhr.send()
-
+*/
 </script>
+
 </body></html>
